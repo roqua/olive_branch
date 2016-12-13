@@ -34,7 +34,7 @@ module OliveBranch
 
     def underscore_params(env)
       if Rails::VERSION::MAJOR < 5
-        env["action_dispatch.request.request_parameters"].deep_transform_keys!(&:underscore)
+        (env["action_dispatch.request.request_parameters"] || {}).deep_transform_keys!(&:underscore)
       else
         request_body = JSON.parse(env['rack.input'].read)
         request_body.deep_transform_keys!(&:underscore)
